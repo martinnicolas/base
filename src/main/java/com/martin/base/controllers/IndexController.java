@@ -31,6 +31,6 @@ public class IndexController {
     @Path("/index")
     @Produces(MediaType.TEXT_HTML)
     public Response index(){        
-        return Response.ok(new Viewable("WEB-INF/views/index/index.jsp")).build();
+        return Response.ok(new Viewable("/WEB-INF/views/index/index.jsp")).build();
     }
 }

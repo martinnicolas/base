@@ -6,11 +6,25 @@
 package com.martin.base.models;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
 
 /**
  *
  * @author martin
  */
+@Table("personas")
 public class Personas extends Model{
+    
+    public int getDni(){
+        return this.getInteger("dni");
+    }
+    
+    public String getApellido(){
+        return this.getString("apellido");
+    }    
+    
+    public String getNombre(){
+        return this.getString("nombre");
+    }    
     
 }
