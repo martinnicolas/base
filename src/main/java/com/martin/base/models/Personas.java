@@ -12,7 +12,7 @@ import org.javalite.activejdbc.annotations.Table;
  *
  * @author martin
  */
-@Table("personas")
+@Table("persona")
 public class Personas extends Model{
     
     public int getDni(){

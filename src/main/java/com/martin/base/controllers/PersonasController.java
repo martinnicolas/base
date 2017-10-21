@@ -45,7 +45,6 @@ public class PersonasController {
         List<Personas> personas = Personas.findAll();
         Map<String, Object> map = new HashMap<>();
         map.put("personas",personas);        
-        map.put("usuario","Martin");
         Base.close();
         return Response.ok(new Viewable("personas/index.jsp",map)).build();
     }
