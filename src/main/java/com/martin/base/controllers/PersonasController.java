@@ -46,7 +46,7 @@ public class PersonasController {
         Map<String, Object> map = new HashMap<>();
         map.put("personas",personas);        
         Base.close();
-        return Response.ok(new Viewable("/views/personas/index.jsp",personas)).build();
+        return Response.ok(new Viewable("/views/personas/index.jsp",map)).build();
     }
     
     @GET

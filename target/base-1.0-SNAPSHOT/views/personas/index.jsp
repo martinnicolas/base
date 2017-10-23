@@ -21,7 +21,7 @@
                 <th>Nombre</th>
                 <th>&nbsp;</th>
             </tr>
-            <c:forEach items="${personas}" var="persona">
+            <c:forEach items="${it.personas}" var="persona">
             <tr>
                 <td><c:out value="${persona.dni}"/></td>
                 <td><c:out value="${persona.apellido}"/></td>
