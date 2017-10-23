@@ -46,56 +46,73 @@ public class PersonasController {
         Map<String, Object> map = new HashMap<>();
         map.put("personas",personas);        
         Base.close();
-        return Response.ok(new Viewable("personas/index.jsp",map)).build();
+        return Response.ok(new Viewable("/views/personas/index.jsp",personas)).build();
+    }
+    
+    @GET
+    @Path("/show/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public Response show(@QueryParam("id") String id){
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Personas persona = Personas.findFirst("id = ?", id);        
+        Map<String, Object> map = new HashMap<>();
+        map.put("persona",persona);        
+        Base.close();
+        return Response.ok(new Viewable("/views/personas/show.jsp", map)).build();
     }
     
     @GET
     @Path("/new")
     @Produces(MediaType.TEXT_HTML)
     public Response add(){
-        return Response.ok(new Viewable("personas/add.jsp")).build();
+        return Response.ok(new Viewable("/views/personas/add.jsp")).build();
     }
     
     @GET
-    @Path("/edit")
+    @Path("/edit/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public Response edit(){
-        return Response.ok(new Viewable("personas/edit.jsp")).build();
+    public Response edit(@QueryParam("id") String id){
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Personas persona = Personas.findFirst("id = ?", id);        
+        Map<String, Object> map = new HashMap<>();
+        map.put("persona",persona); 
+        Base.close();
+        return Response.ok(new Viewable("/views/personas/edit.jsp", map)).build();
     }
     
     @PUT
     @Path("/update/{id}")
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response update(@QueryParam("id") String id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         persona.set("apellido","Gonzalez");
         persona.saveIt();
         Base.close();
-        return Response.ok().build();
+        return Response.ok(new Viewable("/views/personas/index.jsp")).build();
     }
     
     @DELETE
     @Path("/destroy/{id}")
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response destroy(@QueryParam("id") String id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         persona.delete();
         Base.close();
-        return Response.ok().build();
+        return Response.ok(new Viewable("/views/personas/index.jsp")).build();
     }
     
     @POST
     @Path("/create")
-    @Produces(MediaType.TEXT_HTML)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response create(){
         Personas persona = new Personas();
         persona.set("dni", 31343209);
         persona.set("apellido", "Moreno");
         persona.set("nombre", "Felipe");
         persona.saveIt();
-        return Response.ok().build();
+        return Response.ok(new Viewable("/views/personas/index.jsp")).build();
     }
     
 }

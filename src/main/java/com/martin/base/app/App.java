@@ -6,27 +6,20 @@
 package com.martin.base.app;
 
 import com.martin.base.controllers.IndexController;
-import com.martin.base.controllers.PersonasController;
-import java.util.HashSet;
-import java.util.Set;
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 
 /**
  *
  * @author martin
  */
-@ApplicationPath("")
-public class App extends Application{
-    
-    @Override
-    public Set<Class<?>> getClasses() {
-        Set<Class<?>> s = new HashSet<Class<?>>();
-        s.add(IndexController.class);
-        s.add(PersonasController.class);
-        s.add(JspMvcFeature.class);
-        return s;
-    }
+public class App extends ResourceConfig{
+
+    public App(){
+        //Resources
+        packages(IndexController.class.getPackage().getName());        
+        //MVC
+        register(JspMvcFeature.class);
+    }   
     
 }

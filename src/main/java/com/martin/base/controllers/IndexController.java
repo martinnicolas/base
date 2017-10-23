@@ -5,7 +5,6 @@
  */
 package com.martin.base.controllers;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -32,6 +31,6 @@ public class IndexController {
     @Path("/index")
     @Produces(MediaType.TEXT_HTML)
     public Response index(){        
-        return Response.ok(new Viewable("/WEB-INF/views/index/index.jsp")).build();
+        return Response.ok(new Viewable("/views/index/index.jsp")).build();
     }
 }
