@@ -13,22 +13,25 @@
         <title>Proyecto Base</title>
     </head>
     <body>
-        <h4>Listado de personas</h4>
+        <h4>Listado de personas</h4>        
+        <a href="../personas/new">Nueva persona</a>
         <table>
             <tr>
                 <th>DNI</th>
                 <th>Apellido</th>
                 <th>Nombre</th>
-                <th>&nbsp;</th>
+                <th>Accion</th>
             </tr>
             <c:forEach items="${it.personas}" var="persona">
             <tr>
-                <td><c:out value="${persona.dni}"/></td>
-                <td><c:out value="${persona.apellido}"/></td>
-                <td><c:out value="${persona.nombre}"/></td>
-                <td><a href="base/personas/show"></a></td>
-                <td><a href="base/personas/edit"></a></td>
-                <td><a href="base/personas/destroy"></a></td>
+                <td>${persona.dni}</td>
+                <td>${persona.apellido}</td>
+                <td>${persona.nombre}</td>
+                <td>
+                    <a href="../personas/show/${persona.id}">Ver</a> | 
+                    <a href="../personas/edit/${persona.id}">Editar</a> | 
+                    <a href="../personas/destroy/${persona.id}">Eliminar</a>
+                </td>
             </tr>
             </c:forEach>
         </table>

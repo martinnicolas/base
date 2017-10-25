@@ -14,8 +14,8 @@
     <body>
         <h4>Datos de la persona</h4>
         
-        <p>DNI: <c:out value="${it.persona.dni}"/></p>
-        <p>Apellido: <c:out value="${it.persona.apellido}"/></p>
-        <p>Nombre: <c:out value="${it.persona.nombre}"/></p>
+        <p>DNI: ${it.persona.dni}</p>
+        <p>Apellido: ${it.persona.apellido}</p>
+        <p>Nombre: ${it.persona.nombre}</p>
     </body>
 </html>

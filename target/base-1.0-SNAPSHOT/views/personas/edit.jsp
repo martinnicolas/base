@@ -13,5 +13,6 @@
     </head>
     <body>
         <h4>Editando Persona</h4>
+        <jsp:include page="_form.jsp"/>
     </body>
 </html>

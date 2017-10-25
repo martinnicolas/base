@@ -5,6 +5,7 @@
  */
 package com.martin.base.controllers;
 
+import com.app.base.helpers.URLHelper;
 import com.martin.base.models.Personas;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +17,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -44,20 +45,18 @@ public class PersonasController {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         List<Personas> personas = Personas.findAll();
         Map<String, Object> map = new HashMap<>();
-        map.put("personas",personas);        
-        Base.close();
+        map.put("personas",personas);                
         return Response.ok(new Viewable("/views/personas/index.jsp",map)).build();
     }
     
     @GET
     @Path("/show/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public Response show(@QueryParam("id") String id){
+    public Response show(@PathParam("id") String id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
-        map.put("persona",persona);        
-        Base.close();
+        map.put("persona",persona);                
         return Response.ok(new Viewable("/views/personas/show.jsp", map)).build();
     }
     
@@ -71,48 +70,48 @@ public class PersonasController {
     @GET
     @Path("/edit/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public Response edit(@QueryParam("id") String id){
+    public Response edit(@PathParam("id") String id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
-        map.put("persona",persona); 
-        Base.close();
+        map.put("persona",persona);         
         return Response.ok(new Viewable("/views/personas/edit.jsp", map)).build();
     }
     
     @PUT
     @Path("/update/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@QueryParam("id") String id){
+    public Response update(@PathParam("id") String id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
-        persona.set("apellido","Gonzalez");
+        persona.set("dni", request.getAttribute("dni"));
+        persona.set("apellido", request.getAttribute("apellido"));
+        persona.set("nombre", request.getAttribute("nombre"));
         persona.saveIt();
-        Base.close();
-        return Response.ok(new Viewable("/views/personas/index.jsp")).build();
+        return URLHelper.redirect("/personas/index");
     }
     
     @DELETE
     @Path("/destroy/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response destroy(@QueryParam("id") String id){
+    public Response destroy(@PathParam("id") String id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
-        persona.delete();
-        Base.close();
-        return Response.ok(new Viewable("/views/personas/index.jsp")).build();
+        persona.delete();        
+        return URLHelper.redirect("base/personas/index");
     }
     
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(){
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = new Personas();
-        persona.set("dni", 31343209);
-        persona.set("apellido", "Moreno");
-        persona.set("nombre", "Felipe");
+        persona.set("dni", request.getAttribute("dni"));
+        persona.set("apellido", request.getAttribute("apellido"));
+        persona.set("nombre", request.getAttribute("nombre"));
         persona.saveIt();
-        return Response.ok(new Viewable("/views/personas/index.jsp")).build();
+        return URLHelper.redirect("base/personas/index");
     }
     
 }

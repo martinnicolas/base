@@ -12,6 +12,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form method="POST" action="../personas/create">
+            <label for="dni">DNI</label><br/>
+            <input type="text" name="dni" value="${it.persona.dni}"/><br/>
+            <label for="apellido">Apellido</label><br/>
+            <input type="text" name="apellido" value="${it.persona.apellido}"/><br/>
+            <label for="nombre">Nombre</label><br/>
+            <input type="text" name="nombre" value ="${it.persona.nombre}"/><br/>
+            <br/>
+            <input type="submit" value="Guardar"/>
+        </form>
     </body>
 </html>
