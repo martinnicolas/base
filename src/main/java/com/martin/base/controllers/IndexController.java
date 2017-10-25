@@ -22,10 +22,10 @@ import org.glassfish.jersey.server.mvc.Viewable;
 @Path("index")
 public class IndexController {
     @Context
-    HttpServletRequest request;
+    private HttpServletRequest request;
     
     @Context
-    HttpServletResponse response;
+    private HttpServletResponse response;
     
     @GET
     @Path("/index")

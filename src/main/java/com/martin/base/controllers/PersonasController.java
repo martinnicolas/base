@@ -10,9 +10,11 @@ import com.martin.base.models.Personas;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -33,10 +35,10 @@ import org.javalite.activejdbc.Base;
 public class PersonasController {
     
     @Context
-    HttpServletRequest request;
+    private HttpServletRequest request;
     
     @Context
-    HttpServletResponse response;
+    private HttpServletResponse response;
 
     @GET
     @Path("/index")
@@ -52,7 +54,7 @@ public class PersonasController {
     @GET
     @Path("/show/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public Response show(@PathParam("id") String id){
+    public Response show(@PathParam("id") Integer id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
@@ -70,7 +72,7 @@ public class PersonasController {
     @GET
     @Path("/edit/{id}")
     @Produces(MediaType.TEXT_HTML)
-    public Response edit(@PathParam("id") String id){
+    public Response edit(@PathParam("id") Integer id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
@@ -81,14 +83,17 @@ public class PersonasController {
     @PUT
     @Path("/update/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id){
+    public Response update(@PathParam("id") Integer id,
+            @FormParam("dni") Integer dni, 
+            @FormParam("apellido") String apellido,
+            @FormParam("nombre") String nombre){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
-        persona.set("dni", request.getAttribute("dni"));
-        persona.set("apellido", request.getAttribute("apellido"));
-        persona.set("nombre", request.getAttribute("nombre"));
+        persona.set("dni", dni);
+        persona.set("apellido", apellido);
+        persona.set("nombre", nombre);
         persona.saveIt();
-        return URLHelper.redirect("/personas/index");
+        return URLHelper.redirect("personas/show/"+id.toString());
     }
     
     @DELETE
@@ -98,20 +103,23 @@ public class PersonasController {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         persona.delete();        
-        return URLHelper.redirect("base/personas/index");
+        return URLHelper.redirect("personas/index");
     }
     
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(){
+    public Response create(
+            @FormParam("dni") Integer dni, 
+            @FormParam("apellido") String apellido,
+            @FormParam("nombre") String nombre){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = new Personas();
-        persona.set("dni", request.getAttribute("dni"));
-        persona.set("apellido", request.getAttribute("apellido"));
-        persona.set("nombre", request.getAttribute("nombre"));
+        persona.setInteger("dni", dni);
+        persona.setString("apellido", apellido);
+        persona.setString("nombre", nombre);
         persona.saveIt();
-        return URLHelper.redirect("base/personas/index");
+        return URLHelper.redirect("personas/index");
     }
     
 }

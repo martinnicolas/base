@@ -12,7 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="POST" action="../personas/create">
+        <c:if test="${empty it.persona}">
+            <form method="POST" action="../personas/create">
+        </c:if>
+        <c:if test="${not empty it.persona}">
+            <form method="POST" action="../personas/update/${it.persona.id}">
+        </c:if>
             <label for="dni">DNI</label><br/>
             <input type="text" name="dni" value="${it.persona.dni}"/><br/>
             <label for="apellido">Apellido</label><br/>
