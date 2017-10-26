@@ -80,7 +80,7 @@ public class PersonasController {
         return Response.ok(new Viewable("/views/personas/edit.jsp", map)).build();
     }
     
-    @PUT
+    @POST
     @Path("/update/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Integer id,
@@ -96,10 +96,10 @@ public class PersonasController {
         return URLHelper.redirect("personas/show/"+id.toString());
     }
     
-    @DELETE
+    @GET
     @Path("/destroy/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response destroy(@PathParam("id") String id){
+    public Response destroy(@PathParam("id") Integer id){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         persona.delete();        
