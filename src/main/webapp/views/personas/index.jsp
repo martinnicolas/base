@@ -10,13 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-        <script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <link href="<c:url value="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>" rel="stylesheet"/>
+        <script src="<c:url value="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"/>"></script>
         <title>Proyecto Base</title>
     </head>
     <body>
         <h4>Listado de personas</h4>        
-        <a href="../personas/new">Nueva persona</a>
+        <a href="<c:url value="/personas/new"/>">Nueva persona</a>
         <table>
             <tr>
                 <th>DNI</th>
@@ -30,9 +30,9 @@
                 <td>${persona.apellido}</td>
                 <td>${persona.nombre}</td>
                 <td>
-                    <a href="../personas/show/${persona.id}">Ver</a> | 
-                    <a href="../personas/edit/${persona.id}">Editar</a> | 
-                    <a href="../personas/destroy/${persona.id}">Eliminar</a>
+                    <a href="<c:url value="/personas/show/${persona.id}"/>">Ver</a> | 
+                    <a href="<c:url value="/personas/edit/${persona.id}"/>">Editar</a> | 
+                    <a href="<c:url value="/personas/destroy/${persona.id}"/>">Eliminar</a>
                 </td>
             </tr>
             </c:forEach>
