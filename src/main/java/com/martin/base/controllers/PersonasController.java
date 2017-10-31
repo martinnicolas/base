@@ -76,7 +76,7 @@ public class PersonasController {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
-        map.put("persona",persona);         
+        map.put("persona",persona);
         return Response.ok(new Viewable("/views/personas/edit.jsp", map)).build();
     }
     
