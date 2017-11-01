@@ -8,6 +8,7 @@ package com.martin.base.app;
 import com.martin.base.controllers.IndexController;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
+import org.glassfish.jersey.servlet.ServletProperties;
 
 /**
  *
@@ -20,6 +21,8 @@ public class App extends ResourceConfig{
         packages(IndexController.class.getPackage().getName());        
         //MVC
         register(JspMvcFeature.class);
+        //Bootstrap y demás contenido estatico
+        property(ServletProperties.FILTER_STATIC_CONTENT_REGEX, "/assets/.*");
     }   
     
 }
