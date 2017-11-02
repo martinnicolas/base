@@ -88,9 +88,9 @@ public class PersonasController {
             @FormParam("nombre") String nombre){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
-        persona.set("dni", dni);
-        persona.set("apellido", apellido);
-        persona.set("nombre", nombre);
+        persona.setInteger("dni", dni);
+        persona.setString("apellido", apellido);
+        persona.setString("nombre", nombre);
         persona.saveIt();
         return URLHelper.redirect("personas/show/"+id.toString());
     }
