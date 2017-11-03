@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.app.base.helpers;
+package com.martin.base.helpers;
 
 import java.net.URI;
 import java.net.URISyntaxException;
