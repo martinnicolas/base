@@ -5,11 +5,13 @@
  */
 package com.martin.base.controllers;
 
+import com.martin.base.db.DBFilter;
 import com.martin.base.helpers.URLHelper;
 import com.martin.base.models.Personas;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DELETE;
@@ -43,7 +45,8 @@ public class PersonasController {
     @Path("/index")
     @Produces(MediaType.TEXT_HTML)
     public Response index(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        //Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost/base", "postgres", "chacho77");
         List<Personas> personas = Personas.findAll();
         Map<String, Object> map = new HashMap<>();
         map.put("personas",personas);                
@@ -54,7 +57,8 @@ public class PersonasController {
     @Path("/show/{id}")
     @Produces(MediaType.TEXT_HTML)
     public Response show(@PathParam("id") Integer id){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        //Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost/base", "postgres", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
         map.put("persona",persona);                
@@ -72,7 +76,8 @@ public class PersonasController {
     @Path("/edit/{id}")
     @Produces(MediaType.TEXT_HTML)
     public Response edit(@PathParam("id") Integer id){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        //Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost/base", "postgres", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         Map<String, Object> map = new HashMap<>();
         map.put("persona",persona);
@@ -85,8 +90,9 @@ public class PersonasController {
     public Response update(@PathParam("id") Integer id,
             @FormParam("dni") Integer dni, 
             @FormParam("apellido") String apellido,
-            @FormParam("nombre") String nombre){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+            @FormParam("nombre") String nombre){        
+        //Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost/base", "postgres", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         persona.setInteger("dni", dni);
         persona.setString("apellido", apellido);
@@ -99,7 +105,8 @@ public class PersonasController {
     @Path("/destroy/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response destroy(@PathParam("id") Integer id){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        //Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost/base", "postgres", "chacho77");
         Personas persona = Personas.findFirst("id = ?", id);        
         persona.delete();        
         return URLHelper.redirect("personas/index");
@@ -112,7 +119,8 @@ public class PersonasController {
             @FormParam("dni") Integer dni, 
             @FormParam("apellido") String apellido,
             @FormParam("nombre") String nombre){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        //Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/alq", "root", "chacho77");
+        Base.open("org.postgresql.Driver", "jdbc:postgresql://localhost/base", "postgres", "chacho77");
         Personas persona = new Personas();
         persona.setInteger("dni", dni);
         persona.setString("apellido", apellido);
