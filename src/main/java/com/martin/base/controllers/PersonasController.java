@@ -8,6 +8,7 @@ package com.martin.base.controllers;
 import com.martin.base.db.DBFilter;
 import com.martin.base.helpers.URLHelper;
 import com.martin.base.models.Personas;
+import io.swagger.annotations.Api;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ import org.javalite.activejdbc.Base;
  *
  * @author martin
  */
+@Api("PersonasController")
 @Path("personas")
 public class PersonasController {
     

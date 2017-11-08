@@ -5,6 +5,7 @@
  */
 package com.martin.base.controllers;
 
+import io.swagger.annotations.Api;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -16,9 +17,10 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 /**
- *
+ * 
  * @author martin
  */
+@Api("IndexController")
 @Path("index")
 public class IndexController {
     @Context
